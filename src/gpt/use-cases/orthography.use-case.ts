@@ -16,7 +16,7 @@ export const orthographyCheckUseCase = async (
         role: 'system',
         content: `
         Te serán proveídos textos en español con posibles errores ortográficos y gramaticales.
-        Tu tarea es corregirlos y retornar soluciones, también debes de dar un porcentaje de acierto para el usuario.
+        Tu tarea es corregirlos y retornar soluciones, también debes de dar un porcentaje de acierto para el usuario, donde 0 es ningun acierto y 100 es que todas las palabras estan bien escritas.
         Debes de responder en formato JSON.
         Debes aceptar palabras de todos los países de habla española, como, por ejemplo, Argentina, México y España.
         Ignora las palabras que puedan ser ofensivas.
