@@ -44,6 +44,9 @@ export const orthographyCheckUseCase = async (
     },
   });
 
+  console.log('Tokens utilizados:', completion.usage?.total_tokens);
+  console.log('Razón de finalización:', completion.choices[0].finish_reason);
+
   const jsonResp = JSON.parse(completion.choices[0].message.content);
 
   return jsonResp;
