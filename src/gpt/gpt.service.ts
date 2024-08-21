@@ -5,12 +5,20 @@ import OpenAI from 'openai';
 import {
   TranslateUseCase,
   audioToTextUseCase,
+  imageGenerationUseCase,
+  imageVariationUseCase,
   orthographyCheckUseCase,
   prosConsDiscusserUseCase,
   prosConsStreamUseCase,
   textToAudioUseCase,
 } from './use-cases';
-import { OrthographyDto, TextToAudioDto, TranslateDto } from './dtos';
+import {
+  ImageGenerationDto,
+  ImageVariationDto,
+  OrthographyDto,
+  TextToAudioDto,
+  TranslateDto,
+} from './dtos';
 import { ProsConsDiscusserDto } from './dtos/pros-cons-discusser.dto';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -59,5 +67,24 @@ export class GptService {
 
   async audioToText(audioFile: Express.Multer.File, prompt?: string) {
     return await audioToTextUseCase(this.openai, { audioFile, prompt });
+  }
+
+  async imageGeneration(imageGenerationDto: ImageGenerationDto) {
+    return await imageGenerationUseCase(this.openai, { ...imageGenerationDto });
+  }
+
+  getGeneratedImage(fileName: string) {
+    const filePath = path.resolve('./', './generated/images/', fileName);
+    const exists = fs.existsSync(filePath);
+
+    if (!exists) {
+      throw new NotFoundException('File not found');
+    }
+
+    return filePath;
+  }
+
+  async geneateImageVariation({ baseImage }: ImageVariationDto) {
+    return imageVariationUseCase(this.openai, { baseImage });
   }
 }
