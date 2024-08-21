@@ -10,14 +10,12 @@ export const TranslateUseCase = async (
   { prompt, lang }: Options,
 ) => {
   const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
+    model: 'gpt-4o-mini',
     messages: [
       {
         role: 'system',
         content: `
-                Se te brindara un texto y debes traducirlo al idioma ${lang}.
-                Reemplaza las palabras ofensivas con asteriscos.
-                Si no conoces el idioma al que debes traducir, agrega la siguiente leyenda "[IDIOMA NO DETECTADO, SE TRADUCE AL INGLÉS]", seguido de un salto de linea y el texto traducido al inglés.
+                Se te brindara un texto en cualquier idioma y debes traducirlo al idioma ${lang}.
             `,
       },
       {
