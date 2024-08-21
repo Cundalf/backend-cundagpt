@@ -4,6 +4,7 @@ import OpenAI from 'openai';
 
 import {
   TranslateUseCase,
+  audioToTextUseCase,
   orthographyCheckUseCase,
   prosConsDiscusserUseCase,
   prosConsStreamUseCase,
@@ -54,5 +55,9 @@ export class GptService {
     if (!wasFound) throw new NotFoundException(`File ${filename} not found`);
 
     return filePath;
+  }
+
+  async audioToText(audioFile: Express.Multer.File, prompt?: string) {
+    return await audioToTextUseCase(this.openai, { audioFile, prompt });
   }
 }
